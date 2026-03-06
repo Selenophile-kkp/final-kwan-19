@@ -1,0 +1,23 @@
+@BASE_URL = http://localhost:3069
+
+### Doctor register
+POST  {{BASE_URL}}/auth/register/doctor
+Content-Type: application/json
+
+{
+    "username": "andy@gmail.com",
+    "password": "a123456",
+    "specialization": "krtest"
+}
+
+### User register 
+POST  {{BASE_URL}}/auth/register/user
+Content-Type: application/json
+
+{
+    "username": "bb@gmail.com",
+    "password": "b123456"
+}
+
+### Doctor login
+POST {{BASE_URL}}/auth/login
