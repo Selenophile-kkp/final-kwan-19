@@ -20,4 +20,19 @@ Content-Type: application/json
 }
 
 ### Doctor login
-POST {{BASE_URL}}/auth/login
+POST {{BASE_URL}}/auth/login/doctor
+Content-Type: application/json
+
+{
+    "username": "andy@gmail.com",
+    "password": "a123456"
+}
+
+### User login
+POST {{BASE_URL}}/auth/login/user
+Content-Type: application/json
+
+{
+    "username": "bb@gmail.com",
+    "password": "b123456"
+}

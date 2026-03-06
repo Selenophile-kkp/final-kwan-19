@@ -24,8 +24,9 @@ export const createDoctorToken = async (doctor) => {
   const payload = {
     id: doctor.id,
     username: doctor.username,
+    specialization: doctor.specialization,
   };
-  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+  const token = jwt.sign(payload, process.env.JWT_SECRET_DOCTOR, {
     algorithm: "HS256",
     expiresIn: "5d",
   });
@@ -48,4 +49,16 @@ export const createUser = async (username, hashPassword) => {
     },
   });
   return newUser;
+};
+
+export const createUserToken = async (user) => {
+  const payload = {
+    id: user.id,
+    username: user.username,
+  };
+  const token = jwt.sign(payload, process.env.JWT_SECRET_USER, {
+    algorithm: "HS256",
+    expiresIn: "5d",
+  });
+  return token;
 };

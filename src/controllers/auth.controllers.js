@@ -3,6 +3,7 @@ import {
   createDoctor,
   createDoctorToken,
   createUser,
+  createUserToken,
   findDoctorByUsername,
   findUserByUsername,
 } from "../services/auth.service.js";
@@ -65,5 +66,41 @@ export async function loginDoctorController(req, res, next) {
       throw createError(401, "Invaliid credentials");
     }
     const token = await createDoctorToken(doctor);
-  } catch (error) {}
+    res.status(201).json({
+      message: "Login Success",
+      token: token,
+      doctor: {
+        id: doctor.id,
+        username: doctor.username,
+        specialization: doctor.specialization,
+      },
+    });
+
+    next();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function loginUserController(req, res, next) {
+  const { username, password } = req.body;
+  console.log(password);
+  try {
+    const user = await findUserByUsername(username);
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!user || !isMatch) {
+      throw createError(401, "Invaliid credentials");
+    }
+    const token = await createUserToken(user);
+    res.status(201).json({
+      message: "Login Success",
+      token: token,
+      user: {
+        id: user.id,
+        username: user.username,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
 }
